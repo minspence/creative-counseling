@@ -398,12 +398,13 @@ export type SERVICE_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: THERAPISTS_QUERY
-// Query: *[_type == "therapist"][]{_id, name, slug, role, credentials, mainImage}
+// Query: *[_type == "therapist"][]{_id, name, slug, role, bio, credentials, mainImage}
 export type THERAPISTS_QUERY_RESULT = Array<{
   _id: string;
   name: string | null;
   slug: Slug | null;
   role: string | null;
+  bio: PortableText | null;
   credentials: string | null;
   mainImage: null;
 }>;
@@ -425,7 +426,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "service" && defined(slug.current)][]{_id, title, slug, shortDescription}': SERVICES_QUERY_RESULT;
     '*[_type == "service" && slug.current == $slug][0]{title, description, mainImage }': SERVICE_QUERY_RESULT;
-    '*[_type == "therapist"][]{_id, name, slug, role, credentials, mainImage}': THERAPISTS_QUERY_RESULT;
+    '*[_type == "therapist"][]{_id, name, slug, role, bio, credentials, mainImage}': THERAPISTS_QUERY_RESULT;
     '*[_type == "therapist" && slug.current == $slug][0]{name, role, credentials, bio, mainImage}': THERAPIST_QUERY_RESULT;
   }
 }

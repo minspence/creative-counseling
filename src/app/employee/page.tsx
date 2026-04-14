@@ -2,6 +2,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { THERAPISTS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function EmployeePage() {
   const { data: therapists } = await sanityFetch({ query: THERAPISTS_QUERY });
@@ -21,7 +22,9 @@ export default async function EmployeePage() {
                 className="rounded-2xl object-cover mb-2.5"
               />
             )}
-            <h2 className="text-3xl font-semibold">{therapist.name}</h2>
+            <Link href={`/employee/${therapist.slug.current}`}>
+              <h2 className="text-3xl font-semibold">{therapist.name}</h2>
+            </Link>
             {therapist.credentials && (
               <span className="text-gray-500">{therapist.credentials}</span>
             )}

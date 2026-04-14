@@ -5,8 +5,6 @@
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-
-// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
@@ -20,4 +18,15 @@ export default defineConfig({
     structureTool({ structure }),
     visionTool({ defaultApiVersion: apiVersion }),
   ],
+  tools: (prev, { currentUser }) => {
+    const isAdmin = currentUser?.roles.some(
+      (role) => role.name === "administrator",
+    );
+
+    if (isAdmin) {
+      return prev;
+    }
+
+    return prev.filter((tool) => tool.name !== "vision");
+  },
 });

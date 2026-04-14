@@ -9,7 +9,7 @@ export const SERVICE_QUERY = defineQuery(
 );
 
 export const THERAPISTS_QUERY = defineQuery(
-  `*[_type == "therapist"][]{_id, name, slug, role, credentials, mainImage}`,
+  `*[_type == "therapist"][]{_id, name, slug, role, bio, credentials, mainImage}`,
 );
 
 export const THERAPIST_QUERY = defineQuery(
