@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Gelasio, Noto_Sans } from "next/font/google";
+
+const gelasio = Gelasio({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Navigation from "@/components/ui/navigation";
 
 export const metadata: Metadata = {
   title: "Creative Counseling",
@@ -28,9 +28,10 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${gelasio.className} ${notoSans.className} bg-white text-gray-900`}
     >
       <body className="min-h-full flex flex-col">
+        <Navigation />
         {children}
         <SanityLive />
         {(await draftMode()).isEnabled && <VisualEditing />}

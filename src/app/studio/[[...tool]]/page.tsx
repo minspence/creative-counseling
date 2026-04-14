@@ -1,16 +1,31 @@
-import { type Metadata, type Viewport } from 'next'
-import { StudioClient } from './_StudioClient'
+/**
+ * This route is responsible for the built-in authoring environment using Sanity Studio.
+ * All routes under your studio path is handled by this file using Next.js' catch-all routes:
+ * https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes
+ *
+ * You can learn more about the next-sanity package here:
+ * https://github.com/sanity-io/next-sanity
+ */
+
+import { Metadata, Viewport } from "next";
+import {
+  metadata as studioMetadata,
+  viewport as studioViewport,
+} from "next-sanity/studio";
+import { StudioClient } from "./_StudioClient";
 
 export const metadata: Metadata = {
-  title: 'Sanity Studio | Creative Counseling',
-  robots: 'noindex',
-}
+  ...studioMetadata,
+  title: "Creative Counseling Studio",
+};
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-}
+  ...(studioViewport as Viewport),
+  interactiveWidget: "resizes-content",
+};
+
+export const dynamic = "force-static";
 
 export default function StudioPage() {
-  return <StudioClient />
+  return <StudioClient />;
 }

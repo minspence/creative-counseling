@@ -1,23 +1,28 @@
-import { settings } from './documents/settings'
-import { service } from './documents/service'
-import { therapist } from './documents/therapist'
-import { post } from './documents/post'
-import { testimonial } from './documents/testimonial'
-import { faq } from './documents/faq'
-import { seoObject } from './objects/seo'
-import { portableTextObject } from './objects/portableText'
-import { ctaObject } from './objects/cta'
+import { type SchemaTypeDefinition } from "sanity";
+import { blockContentType } from "./blockContentType";
+import serviceType from "./serviceType";
+import therapistType from "./therapistType";
+import settingsType from "./settingsType";
+import { faqType } from "./faqType";
+import { faqsType } from "./blocks/faqsType";
+import { featuresType } from "./blocks/featuresType";
+import { heroType } from "./blocks/heroType";
+import { pageBuilderType } from "./pageBuilderType";
+import { pageType } from "./pageType";
+import { splitImageType } from "./blocks/splitImageType";
 
-export const schemaTypes = [
-  // Documents
-  settings,
-  service,
-  therapist,
-  post,
-  testimonial,
-  faq,
-  // Objects
-  seoObject,
-  portableTextObject,
-  ctaObject,
-]
+export const schema: { types: SchemaTypeDefinition[] } = {
+  types: [
+    blockContentType,
+    serviceType,
+    therapistType,
+    settingsType,
+    pageBuilderType,
+    pageType,
+    heroType,
+    splitImageType,
+    featuresType,
+    faqType,
+    faqsType,
+  ],
+};

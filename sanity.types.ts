@@ -369,3 +369,63 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: SERVICES_QUERY
+// Query: *[_type == "service" && defined(slug.current)][]{_id, title, slug, shortDescription}
+export type SERVICES_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  shortDescription: string | null;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: SERVICE_QUERY
+// Query: *[_type == "service" && slug.current == $slug][0]{title, description, mainImage }
+export type SERVICE_QUERY_RESULT = {
+  title: string | null;
+  description: null;
+  mainImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: THERAPISTS_QUERY
+// Query: *[_type == "therapist"][]{_id, name, slug, role, credentials, mainImage}
+export type THERAPISTS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  slug: Slug | null;
+  role: string | null;
+  credentials: string | null;
+  mainImage: null;
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: THERAPIST_QUERY
+// Query: *[_type == "therapist" && slug.current == $slug][0]{name, role, credentials, bio, mainImage}
+export type THERAPIST_QUERY_RESULT = {
+  name: string | null;
+  role: string | null;
+  credentials: string | null;
+  bio: PortableText | null;
+  mainImage: null;
+} | null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '*[_type == "service" && defined(slug.current)][]{_id, title, slug, shortDescription}': SERVICES_QUERY_RESULT;
+    '*[_type == "service" && slug.current == $slug][0]{title, description, mainImage }': SERVICE_QUERY_RESULT;
+    '*[_type == "therapist"][]{_id, name, slug, role, credentials, mainImage}': THERAPISTS_QUERY_RESULT;
+    '*[_type == "therapist" && slug.current == $slug][0]{name, role, credentials, bio, mainImage}': THERAPIST_QUERY_RESULT;
+  }
+}
